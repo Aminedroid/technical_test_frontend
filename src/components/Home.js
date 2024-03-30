@@ -2,9 +2,13 @@ import React, {useEffect, useState} from "react";
 import {Table} from "react-bootstrap";
 import {getUsers} from "../services/UserService";
 import '../App.css';
+import Pagination from "./Pagination";
+import pagination from "./Pagination";
 
 const Home = () => {
     const [users, setUsers] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [usersPerPage] = useState(3);
 
     useEffect(() => {
         let mounted = true;
@@ -16,6 +20,14 @@ const Home = () => {
             })
         return () => mounted = false
     }, []);
+
+    // get current users
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+
+    // change page
+    const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
         <div className="row side-row">
@@ -31,7 +43,7 @@ const Home = () => {
                 </tr>
               </thead>
               <tbody>
-              {users.map((user) =>
+              {currentUsers.map((user) =>
                   <tr key={user.user_id}>
                       <td>{user.user_id}</td>
                       <td>{user.first_name}</td>
@@ -43,6 +55,7 @@ const Home = () => {
               )}
               </tbody>
             </Table>
+            <Pagination usersPerPage={usersPerPage} totalUsers={users.length} paginate={paginate} />
         </div>
     );
 }

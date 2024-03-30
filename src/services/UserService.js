@@ -1,7 +1,7 @@
 import axios from "axios";
 
-export function getUsers() {
-    return axios.get('http://127.0.0.1:8000/users/')
+export async function getUsers() {
+    return await axios.get('http://127.0.0.1:8000/users/')
         .then(res => res.data)
         .catch(err => {
             console.log(err.response.data.error)
