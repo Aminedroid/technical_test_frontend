@@ -1,0 +1,21 @@
+body, html {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.sidebar {
+  display: flex;
+  height: 100vh;
+  float: left;
+  overflow: auto;
+}
+
+.side-row {
+  padding: 30px;
+}
+
+.toolbar-button {
+  flex: auto;
+  margin-bottom: 5px;
+}
