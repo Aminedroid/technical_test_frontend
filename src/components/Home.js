@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from "react";
-import {FormControl, InputGroup, Table} from "react-bootstrap";
+import {Table} from "react-bootstrap";
 import {getUsers} from "../services/UserService";
 import '../App.css';
 
-const Users = () => {
+const Home = () => {
     const [users, setUsers] = useState([]);
-    const [search, setSearch] = useState('');
 
     useEffect(() => {
         let mounted = true;
@@ -20,9 +19,6 @@ const Users = () => {
 
     return (
         <div className="row side-row">
-            <InputGroup>
-                <FormControl onChange={(e) => setSearch(e.target.value)} placeholder="Search contacts"/>
-            </InputGroup>
             <Table striped bordered hover>
               <thead>
                 <tr>
@@ -35,17 +31,7 @@ const Users = () => {
                 </tr>
               </thead>
               <tbody>
-              {users.filter((user) => {
-                  if (search.toLowerCase() === ''){
-                      return user;
-                  } else {
-                      return user.first_name.toLowerCase().includes(search) ||
-                          user.last_name.toLowerCase().includes(search) ||
-                          user.age.toString().includes(search) ||
-                          user.gender.toLowerCase().includes(search) ||
-                          user.city.toLowerCase().includes(search);
-                  }
-              }).map((user) =>
+              {users.map((user) =>
                   <tr key={user.user_id}>
                       <td>{user.user_id}</td>
                       <td>{user.first_name}</td>
@@ -61,4 +47,4 @@ const Users = () => {
     );
 }
 
-export default Users;
+export default Home;
